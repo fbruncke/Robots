@@ -2,10 +2,17 @@ package prog;
 
 import robocode.*;
 
-import java.awt.*;
+import static java.awt.Color.*;
 
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
+/**
+ * Our implementation of a RoboCode AdvancedRobot.
+ *
+ * @author  Denis, Jonas, Morten, Niclas, and Rasmus.
+ * @version 2.4
+ * @since   09.12.2020
+ */
 public class Mortus extends AdvancedRobot {
     private final double NORTH = 360;
     private final double EAST = 90;
@@ -14,11 +21,11 @@ public class Mortus extends AdvancedRobot {
 
     @Override
     public void run() {
-        setBodyColor(Color.gray);
-        setGunColor(Color.red);
-        setRadarColor(Color.red);
-        setBulletColor(Color.red);
-        setScanColor(Color.green);
+        setBodyColor(gray);
+        setGunColor(red);
+        setRadarColor(red);
+        setBulletColor(red);
+        setScanColor(green);
 
         goToEdge();
 
@@ -36,14 +43,11 @@ public class Mortus extends AdvancedRobot {
 
     @Override
     public void onScannedRobot(ScannedRobotEvent event) {
-        if (getOthers() != 1 && event.getDistance() <= 250) {
+        if (event.getDistance() <= 250) {
             setTurnGunRight(normalRelativeAngleDegrees(event.getBearing() + (getHeading() - getRadarHeading())));
             setFire(Math.min(300 / event.getDistance(), 3));
 
             execute();
-        } else if (getOthers() == 1) {
-            setTurnGunRight(normalRelativeAngleDegrees(event.getBearing() + (getHeading() - getRadarHeading())));
-            setFire(Math.min(300 / event.getDistance(), 3));
         }
     }
 
